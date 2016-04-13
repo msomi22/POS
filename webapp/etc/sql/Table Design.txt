@@ -1,0 +1,252 @@
+
+ 
++++++++++++++++++++++++++++++++++++++++
++ POS Management System Database Layout.
++++++++++++++++++++++++++++++++++++++++
+
+The tables are divided into the following sections:
+
+1. Payment Management
+2. Stock Management
+3. Supplier Management
+4. Customer Management
+5. Employee Management
+6. Expenses Management
+
+
+
+GUID (or UUID) is an acronym for 'Globally Unique Identifier'
+ (or 'Universally Unique Identifier'). It is a 128-bit integer
+  number used to identify resources. The term GUID is generally
+   used by developers working with Microsoft technologies,
+    while UUID is used everywhere else. 
+
+
+======================
+======================
+1. Payment Management
+======================
+======================
+
+- -------------------
+-- Table paymentType
+-- -------------------
+
+   -id  (primary key)
+   -uuid 
+   -payType   , M-PESA,CASH,BANK
+   
+
+
+======================
+======================
+2. Stock Management
+======================
+======================
+
+  
+
+
+-- -------------------
+-- Table productCategory
+-- -------------------
+This table keeps product category from 'a supplier' and the category details, the count is increased or decreased accordingly 
+    -id  (primary key)
+    -uuid 
+    -categoryName
+    -productCategory     ,Motocycle-mini,Motycle-Medium,Motocyle-Large
+    -productModel        ,hh77677      ,hhhg6777      ,mjhhh877
+    -productManufcturer  ,mmmm         ,mmmm          ,mmmm
+    -productCount        ,20           ,10            ,15
+
+-- -------------------
+-- Table product
+-- -------------------
+This table keeps the details of all the products, and their basic details, when an item is sold, the count under category is decreased
+    -id  (primary key)
+    -uuid 
+    -productCategoryUuid ,m12,  ,m12   ,m13
+    -productName         ,moto01,moto02,moto03
+    -productBarCode      ,099000,98889,6667788
+    -productVAT          ,100   ,100  ,100
+    -productBP           ,10000 ,10000,12000    Derived from supplierTable, (total_supplied/count = BP)
+    -productSP           ,15000,15000,22000     set by the saler ,  profit = SP-BP
+    -productStatus       ,Ok,bought,broken
+    
+
+
+
+- -------------------
+-- Table productSale
+-- -------------------
+This table keeps the record of the sold products, we find profit/loss from this table
+
+    -id  (primary key)
+    -iuid 
+    -productUuid
+    -productDiscount
+    -saleDate  //DD,MM,YY
+
+
+- -------------------
+-- Table customerGoods   ******
+-- -------------------
+This table keeps record of all the products a particular customer buys, in case of anything, we can reffer from this table
+    -id  (primary key)
+    -iuid 
+    -productUuid
+    -receiptNumber
+    -amountPiad
+    -balance
+    -DateServed  //DD,MM,YY
+    -paymentTypeUuid
+   
+
+======================
+======================
+3. Supplier Management
+======================
+======================
+This table stores supplier's basic details
+- -------------------
+-- Table supplier
+-- -------------------
+
+    -id  (primary key)
+    -iuid 
+    -supplierName
+    -supplierPhone
+    -supplierEmail
+    -supplierAddress
+    -supplierLocation
+
+
+- -------------------
+-- Table supplysIN
+-- -------------------
+This table stores supplire's products In a particular category, the table determins the product BP
+    -id  (primary key)
+    -iuid 
+    -supplierUuid         ,A             ,B
+    -productCategoryUuid  ,motocycle-mini,motocyle-mini
+    -categoryPrice        ,800 000       ,950 000
+    -CategoryCount        ,20            ,15
+    -DateBought           ,DD/MM/YY      ,DD/MM/YY
+   
+
+======================
+======================
+4. Customer Management
+======================
+======================
+- -------------------
+-- Table customer
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -customerName
+    -customerPhone
+    -customerEmail
+    -customerCardNumber
+    -customerPoints
+    
+- -------------------
+-- Table redeemRate
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -rate 
+
+- -------------------
+-- Table customerRedeem
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -customerUuid
+    -pointsReedemed  //points redeemed to goods
+
+   
+
+
+======================
+======================
+5. Employee Management
+======================
+======================
+
+- -------------------
+-- Table category
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -category   // Sales Manager, Cashier etc
+
+- -------------------
+-- Table employee
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -employeeName
+    -employeeIdNumber
+    -employeePhone
+    -employeeEmail
+    -employeeCounty
+
+
+- -------------------
+-- Table users
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -employeeUuid
+    -categoryUuid
+    -username
+    -password
+    
+======================
+======================
+6. Expenses Management
+======================
+======================
+
+- -------------------
+-- Table expenseType
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -expense   , salary,rent,damage
+    -amount    ,10 000,9000,1000
+    
+    
+
+- -------------------
+-- Table employeeExpense
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -expenseUuid
+    -employeeUuid
+    -month     ,Jan
+    -year      ,2016
+
+
+- -------------------
+-- Table otherExpense
+-- -------------------
+
+    -id  (primary key)
+    -uuid 
+    -expenseUuid
+    -month     ,Jan
+    -year      ,2016
+  
+
+

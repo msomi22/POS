@@ -23,26 +23,40 @@ CREATE DATABASE posdb;
 
 
 -- =========================
--- 1.  Customer Management
+-- 1.  Payment Management
 -- =========================
 
--- -------------------
--- Table customer
+---------------------
+-- Table paymentType
 -- -------------------
 
 
-CREATE TABLE  customer (
+CREATE TABLE  paymentType (
     Id SERIAL PRIMARY KEY,
     Uuid text UNIQUE NOT NULL,
-    Status text,
-    PhoneNo text,
-    MessageId text,
-    Cost text 
-
-    
-
+    payType text,
+   
 );
-\COPY customer(Uuid,Status,PhoneNo,MessageId,Cost) FROM '/tmp/customer.csv' WITH DELIMITER AS '|' CSV HEADER
-ALTER TABLE customer OWNER TO pos;
+\COPY paymentType(Uuid,payType) FROM '/tmp/paymentType.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE paymentType OWNER TO pos;
+
+
+
+-- =========================
+-- 2.  Stock Management
+-- =========================
+
+--------------------
+-- Table productCategory
+-- -------------------
+
+CREATE TABLE  productCategory (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    payType text,
+   
+);
+\COPY productCategory(Uuid,payType) FROM '/tmp/productCategory.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE productCategory OWNER TO pos;
 
 

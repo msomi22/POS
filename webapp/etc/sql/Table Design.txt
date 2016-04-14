@@ -1,5 +1,6 @@
 
- 
+
+
 +++++++++++++++++++++++++++++++++++++++
 + POS Management System Database Layout.
 +++++++++++++++++++++++++++++++++++++++
@@ -157,7 +158,9 @@ This table stores supplire's products In a particular category, the table determ
 
     -id  (primary key)
     -uuid 
-    -rate 
+    -redeemRate 
+    -month
+    -year
 
 - -------------------
 -- Table customerRedeem
@@ -223,6 +226,8 @@ This table stores supplire's products In a particular category, the table determ
     -uuid 
     -expense   , salary,rent,damage
     -amount    ,10 000,9000,1000
+    -month
+    -year
     
     
 
@@ -245,6 +250,7 @@ This table stores supplire's products In a particular category, the table determ
     -id  (primary key)
     -uuid 
     -expenseUuid
+    -description
     -month     ,Jan
     -year      ,2016
   
